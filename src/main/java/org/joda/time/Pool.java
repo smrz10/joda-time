@@ -5,23 +5,23 @@ import java.util.HashMap;
 public class Pool {
     private static Pool myInstance;
 
-    private GenericPool<Years> poolYears;
-    private GenericPool<Months> poolMonths;
-    private GenericPool<Weeks> poolWeeks;
-    private GenericPool<Days> poolDays;
-    private GenericPool<Hours> poolHours;
-    private GenericPool<Minutes> poolMinutes;
-    private GenericPool<Seconds> poolSeconds;
+    private GenericPool<Years> years;
+    private GenericPool<Months> months;
+    private GenericPool<Weeks> weeks;
+    private GenericPool<Days> days;
+    private GenericPool<Hours> hours;
+    private GenericPool<Minutes> minutes;
+    private GenericPool<Seconds> seconds;
 
 
     private Pool() {
-        this.poolYears = new GenericPool<Years>(Years.class);
-        this.poolMonths = new GenericPool<Months>(Months.class);
-        this.poolWeeks = new GenericPool<Weeks>(Weeks.class);
-        this.poolDays = new GenericPool<Days>(Days.class);
-        this.poolHours = new GenericPool<Hours>(Hours.class);
-        this.poolMinutes = new GenericPool<Minutes>(Minutes.class);
-        this.poolSeconds = new GenericPool<Seconds>(Seconds.class);
+        this.years = new GenericPool<Years>(Years.class);
+        this.months = new GenericPool<Months>(Months.class);
+        this.weeks = new GenericPool<Weeks>(Weeks.class);
+        this.days = new GenericPool<Days>(Days.class);
+        this.hours = new GenericPool<Hours>(Hours.class);
+        this.minutes = new GenericPool<Minutes>(Minutes.class);
+        this.seconds = new GenericPool<Seconds>(Seconds.class);
     }
 
     public static Pool getInstance() {
@@ -36,43 +36,43 @@ public class Pool {
     public static Years retrieveYears(int numeral) {
         Pool pool = Pool.getInstance();
 
-        return pool.poolYears.retrieve(numeral);
+        return pool.years.retrieve(numeral);
     }
 
     public static Months retrieveMonths(int numeral) {
         Pool pool = Pool.getInstance();
 
-        return pool.poolMonths.retrieve(numeral);
+        return pool.months.retrieve(numeral);
     }
 
     public static Weeks retrieveWeeks(int numeral) {
         Pool pool = Pool.getInstance();
 
-        return pool.poolWeeks.retrieve(numeral);
+        return pool.weeks.retrieve(numeral);
     }
 
     public static Days retrieveDays(int numeral) {
         Pool pool = Pool.getInstance();
 
-        return pool.poolDays.retrieve(numeral);
+        return pool.days.retrieve(numeral);
     }
 
     public static Hours retrieveHours(int numeral) {
         Pool pool = Pool.getInstance();
 
-        return pool.poolHours.retrieve(numeral);
+        return pool.hours.retrieve(numeral);
     }
 
     public static Minutes retrieveMinutes(int numeral) {
         Pool pool = Pool.getInstance();
 
-        return pool.poolMinutes.retrieve(numeral);
+        return pool.minutes.retrieve(numeral);
     }
 
     public static Seconds retrieveSeconds(int numeral) {
         Pool pool = Pool.getInstance();
 
-        return pool.poolSeconds.retrieve(numeral);
+        return pool.seconds.retrieve(numeral);
     }
 
 
