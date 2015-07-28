@@ -5,23 +5,23 @@ import java.util.HashMap;
 public class Pool {
 
     private static Pool myInstance;
-    private HashMap<Integer, Years> years;
     private HashMap<Integer, Months> months;
     private HashMap<Integer, Weeks> weeks;
     private HashMap<Integer, Days> days;
     private HashMap<Integer, Hours> hours;
     private HashMap<Integer, Minutes> minutes;
     private HashMap<Integer, Seconds> seconds;
+    private GenericPool<Years> poolYears;
 
 
     private Pool() {
-        this.years = new HashMap<Integer, Years>();
         this.months = new HashMap<Integer, Months>();
         this.weeks = new HashMap<Integer, Weeks>();
         this.days = new HashMap<Integer, Days>();
         this.hours = new HashMap<Integer, Hours>();
         this.minutes = new HashMap<Integer, Minutes>();
         this.seconds = new HashMap<Integer, Seconds>();
+        this.poolYears = new GenericPool<Years>(Years.class);
     }
 
     public static Pool getInstance() {
@@ -36,14 +36,7 @@ public class Pool {
     public static Years retrieveYears(int numeral) {
         Pool pool = Pool.getInstance();
 
-        Object result = pool.getYears(numeral);
-
-        if (result == null) {
-            result =  new Years(numeral);
-            pool.addYears(numeral, (Years) result);
-        }
-
-        return (Years) result;
+        return pool.poolYears.retrieve(numeral);
     }
 
     public static Months retrieveMonths(int numeral) {
@@ -126,9 +119,6 @@ public class Pool {
         return (Minutes) result;
     }
 
-    private void addYears(int numeral, Years year) {
-        years.put(new Integer(numeral), year);
-    }
 
     private void addMonths(int numeral, Months month) {
         months.put(new Integer(numeral), month);
@@ -154,11 +144,7 @@ public class Pool {
         minutes.put(new Integer(numeral), minute);
     }
 
-    private Object getYears(int numeral){
-        Object instance = years.get(new Integer(numeral));
 
-        return instance;
-    }
     private class GenericPool<T>{
         private HashMap<Integer, T> pool;
         private final Class<T> clazz;
