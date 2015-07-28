@@ -159,41 +159,45 @@ public class Pool {
 
         return instance;
     }
+    private class GenericPool<T>{
+        private HashMap<Integer, T> pool;
+        private final Class<T> clazz;
 
-    private Object getMonths(int numeral){
-        Object instance = months.get(new Integer(numeral));
 
-        return instance;
+        private GenericPool(Class<T> clazz) {
+            this.clazz = clazz;
+
+            this.pool = new HashMap<Integer, T>();
+        }
+
+        public T retrieve(int numeral) {
+            Object result = this.get(numeral);
+
+            if (result == null) {
+                result = createInstance(numeral);
+                this.add(numeral, (T) result);
+            }
+
+            return (T) result;
+        }
+
+        private T createInstance(int numeral) {
+            try {
+                return clazz.getDeclaredConstructor( Integer.TYPE ).newInstance(numeral);
+
+            } catch(Exception e) {
+                return null;
+            }
+        }
+
+        private void add(int numeral, T instance) {
+            pool.put(new Integer(numeral), instance);
+        }
+
+        private Object get(int numeral){
+            Object instance = pool.get(new Integer(numeral));
+
+            return instance;
+        }
     }
-    private Object getWeeks(int numeral){
-        Object instance = weeks.get(new Integer(numeral));
-
-        return instance;
-    }
-
-    private Object getDays(int numeral){
-        Object instance = days.get(new Integer(numeral));
-
-        return instance;
-    }
-
-    private Object getHours(int numeral) {
-        Object instance = hours.get(new Integer(numeral));
-
-        return instance;
-    }
-
-    private Object getMinutes(int numeral) {
-        Object instance = minutes.get(new Integer(numeral));
-
-        return instance;
-    }
-
-    private Object getSeconds(int numeral) {
-        Object instance = seconds.get(new Integer(numeral));
-
-        return instance;
-    }
-
-
 }
